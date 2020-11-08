@@ -34,5 +34,40 @@ namespace Inventory_with_EntityFramework.Controllers
             context.SaveChanges();
             return RedirectToAction("/Index");
         }
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            //var categoryToUpdate = from item in context.Categories
+            //                       where item.CategoryId == id
+            //                       select item;
+            //return View(categoryToUpdate.FirstOrDefault());
+
+            //var categoryToUpdate = context.Categories.Where(x => x.CategoryId == id);
+            //return View(categoryToUpdate.FirstOrDefault());
+
+            //return View(context.Categories.Where(x => x.CategoryId == id).FirstOrDefault());
+
+            return View(context.Categories.Find(id)); //Must have same primary key properly
+        }
+        [HttpPost]
+        public ActionResult Edit(Category cat)
+        {
+            //var result = from item in context.Categories
+            //                       where item.CategoryId == cat.CategoryId
+            //                       select item;
+
+            //var result = context.Categories.Where(x => x.CategoryId == cat.CategoryId);
+            //Category categoryToUpdate = result.FirstOrDefault();
+            //categoryToUpdate.CategoryName = cat.CategoryName;
+            //context.SaveChanges();
+            //return RedirectToAction("/Index");
+
+            Category categoryToUpdate = context.Categories.Where(x => x.CategoryId == cat.CategoryId).FirstOrDefault();
+            categoryToUpdate.CategoryName = cat.CategoryName;
+            context.SaveChanges();
+
+            return RedirectToAction("/Index");
+
+        }
     }
 }
